@@ -13,7 +13,7 @@ steps:
 ### Push
   - id: "push image"
     name: "gcr.io/cloud-builders/docker"
-    args: ["push", "asia-northeast3-docker.pkg.dev/${PROJECT_ID}/cloocus-repo/${_SERVICE_NAME}"]
+    args: ["push", "asia-northeast3-docker.pkg.dev/${PROJECT_ID}/cloocus-repo/${_SERVICE_NAME}:${SHORT_SHA}"]
 
 ### Deploy
   - id: "deploy prod service"
@@ -25,6 +25,6 @@ steps:
           gcloud run deploy ${_SERVICE_NAME} \
             --platform managed \
             --region ${_REGION} \
-            --image asia-northeast3-docker.pkg.dev/${PROJECT_ID}/cloocus-repo/${_SERVICE_NAME} \
+    --image asia-northeast3-docker.pkg.dev/${PROJECT_ID}/cloocus-repo/${_SERVICE_NAME}:${SHORT_SHA} \
             --tag=${BRANCH_NAME}
 
